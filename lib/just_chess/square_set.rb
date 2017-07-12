@@ -1,3 +1,4 @@
+require 'forwardable'
 require 'just_chess/square'
 
 module JustChess
