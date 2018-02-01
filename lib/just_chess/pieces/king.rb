@@ -47,7 +47,7 @@ module JustChess
 
       if has_not_moved? && rooks.any?
         _squares = rooks.map do |s|
-          vector = Vector.new(square, s)
+          vector = BoardGameGrid::Vector.new(square, s)
           x = square.x + (2 * vector.direction.x)
           y = square.y
           game_state.squares.find_by_x_and_y(x, y)

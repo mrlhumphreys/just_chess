@@ -1,5 +1,3 @@
-require 'just_chess/vector'
-
 module JustChess
 
   # = Piece

@@ -1,12 +1,12 @@
 require 'just_chess/piece_factory'
-require 'just_chess/point'
+require 'board_game_grid'
 
 module JustChess
 
   # = Square
   #
   # A Square on a checker board
-  class Square
+  class Square < BoardGameGrid::Square
 
     # New objects can be instantiated by passing in a hash with
     #
@@ -35,32 +35,6 @@ module JustChess
       @x = x
       @y = y
       @piece = PieceFactory.new(piece).build
-    end
-
-    # @return [String] the unique identifier of the square.
-    attr_reader :id
-
-    # @return [Fixnum] the x co-ordinate of the square.
-    attr_reader :x
-
-    # @return [Fixnum] the y co-ordinate of the square.
-    attr_reader :y
-
-    # @return [Piece,NilClass] The piece on the square if any.
-    attr_accessor :piece
-
-    # Is the square occupied by a piece?
-    #
-    # @return [Boolean]
-    def occupied?
-      !!piece
-    end
-
-    # Is the square unoccupied by a piece?
-    #
-    # @return [Boolean]
-    def unoccupied?
-      !piece
     end
 
     # Is the square occupied by the specified player?
@@ -93,20 +67,6 @@ module JustChess
     # @return [Boolean]
     def last_rank(player_number)
       rank_number(player_number) == 8
-    end
-
-    # Is the square the same as another one?
-    #
-    # @return [Boolean]
-    def ==(other)
-      self.id == other.id
-    end
-
-    # A point object with the square's co-ordinates.
-    #
-    # @return [Point]
-    def point
-      Point.new(x, y)
     end
 
     # A serialized version of the square as a hash

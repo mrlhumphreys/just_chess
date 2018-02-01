@@ -4,6 +4,7 @@ require 'just_chess/errors/invalid_move_error'
 require 'just_chess/errors/invalid_promotion_error'
 require 'just_chess/errors/moved_into_check_error'
 require 'just_chess/square_set'
+require 'board_game_grid'
 
 module JustChess
 
@@ -223,7 +224,7 @@ module JustChess
       to = squares.find_by_id(to_id)
 
       captured = captured_square(from, to)
-      double_step_pawn = from.piece.is_a?(JustChess::Pawn) && Vector.new(from,to).magnitude == 2
+      double_step_pawn = from.piece.is_a?(JustChess::Pawn) && BoardGameGrid::Vector.new(from,to).magnitude == 2
       @last_double_step_pawn_id = double_step_pawn ? from.piece.id : nil
 
       @last_change = { type: 'move', data: {player_number: player_number, from: from_id, to: to_id} }
@@ -272,7 +273,7 @@ module JustChess
 
     def rook_castle_move(from, to)
       if from.occupied? && from.piece.is_a?(King) && from.piece.castle(from, self).include?(to)
-        vector = Vector.new(from, to)
+        vector = BoardGameGrid::Vector.new(from, to)
 
         rook_from_x = vector.direction.x > 0 ? 7 : 0
         rook_from_y = from.y

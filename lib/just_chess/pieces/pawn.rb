@@ -1,5 +1,5 @@
 require 'just_chess/pieces/piece'
-require 'just_chess/vector.rb'
+require 'board_game_grid'
 
 module JustChess
 
@@ -73,7 +73,7 @@ module JustChess
     def en_passant_square(square, game_state)
       if square.rank_number(player_number) == 5 && game_state.last_double_step_pawn_id
         double_step = game_state.squares.find_by_piece_id(game_state.last_double_step_pawn_id)
-        vector = Vector.new(square, double_step)
+        vector = BoardGameGrid::Vector.new(square, double_step)
         if vector.magnitude.abs == 1
           x = double_step.x
           y = square.y + forwards_direction
