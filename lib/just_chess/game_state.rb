@@ -245,9 +245,12 @@ module JustChess
     end
 
     def in_checkmate?(player_number)
-      in_check?(player_number) && king_cannot_move?(player_number)
+      (in_check?(player_number) || non_king_pieces_cannot_move?(player_number)) && king_cannot_move?(player_number)
     end
 
+    def non_king_pieces_cannot_move?(player_number)
+      squares.occupied_by_player(player_number).excluding_piece(JustChess::King).all? { |s| s.piece.destinations(s, self).empty? }
+    end
 
     def king_cannot_move?(player_number)
       king_square = squares.find_king_for_player(player_number)

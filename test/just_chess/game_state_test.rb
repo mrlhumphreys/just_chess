@@ -548,6 +548,83 @@ checkmate_state = JustChess::GameState.new({
   ]
 })
 
+no_moves_state = JustChess::GameState.new({
+  current_player_number: 2,
+  last_double_step_pawn_id: nil,
+  squares: [
+    { id: 'a8', x: 0, y: 0, piece: nil },
+    { id: 'b8', x: 1, y: 0, piece: nil },
+    { id: 'c8', x: 2, y: 0, piece: nil },
+    { id: 'd8', x: 3, y: 0, piece: nil },
+    { id: 'e8', x: 4, y: 0, piece: nil },
+    { id: 'f8', x: 5, y: 0, piece: nil },
+    { id: 'g8', x: 6, y: 0, piece: nil },
+    { id: 'h8', x: 7, y: 0, piece: nil },
+
+    { id: 'a7', x: 0, y: 1, piece: nil },
+    { id: 'b7', x: 1, y: 1, piece: nil },
+    { id: 'c7', x: 2, y: 1, piece: nil },
+    { id: 'd7', x: 3, y: 1, piece: nil },
+    { id: 'e7', x: 4, y: 1, piece: nil },
+    { id: 'f7', x: 5, y: 1, piece: nil },
+    { id: 'g7', x: 6, y: 1, piece: nil },
+    { id: 'h7', x: 7, y: 1, piece: nil },
+
+    { id: 'a6', x: 0, y: 2, piece: nil },
+    { id: 'b6', x: 1, y: 2, piece: nil },
+    { id: 'c6', x: 2, y: 2, piece: nil },
+    { id: 'd6', x: 3, y: 2, piece: nil },
+    { id: 'e6', x: 4, y: 2, piece: nil },
+    { id: 'f6', x: 5, y: 2, piece: nil },
+    { id: 'g6', x: 6, y: 2, piece: nil },
+    { id: 'h6', x: 7, y: 2, piece: nil },
+
+    { id: 'a5', x: 0, y: 3, piece: nil },
+    { id: 'b5', x: 1, y: 3, piece: nil },
+    { id: 'c5', x: 2, y: 3, piece: nil },
+    { id: 'd5', x: 3, y: 3, piece: { id: 29, player_number: 1, type: 'king' } },
+    { id: 'e5', x: 4, y: 3, piece: nil },
+    { id: 'f5', x: 5, y: 3, piece: nil },
+    { id: 'g5', x: 6, y: 3, piece: nil },
+    { id: 'h5', x: 7, y: 3, piece: { id: 28, player_number: 1, type: 'queen' } },
+
+    { id: 'a4', x: 0, y: 4, piece: nil },
+    { id: 'b4', x: 1, y: 4, piece: nil },
+    { id: 'c4', x: 2, y: 4, piece: nil },
+    { id: 'd4', x: 3, y: 4, piece: nil },
+    { id: 'e4', x: 4, y: 4, piece: nil },
+    { id: 'f4', x: 5, y: 4, piece: { id: 5, player_number: 2, type: 'king' } },
+    { id: 'g4', x: 6, y: 4, piece: nil },
+    { id: 'h4', x: 7, y: 4, piece: nil },
+
+    { id: 'a3', x: 0, y: 5, piece: { id: 25, player_number: 1, type: 'rook' } },
+    { id: 'b3', x: 1, y: 5, piece: nil },
+    { id: 'c3', x: 2, y: 5, piece: nil },
+    { id: 'd3', x: 3, y: 5, piece: nil },
+    { id: 'e3', x: 4, y: 5, piece: nil },
+    { id: 'f3', x: 5, y: 5, piece: nil },
+    { id: 'g3', x: 6, y: 5, piece: nil },
+    { id: 'h3', x: 7, y: 5, piece: nil },
+
+    { id: 'a2', x: 0, y: 6, piece: nil },
+    { id: 'b2', x: 1, y: 6, piece: nil },
+    { id: 'c2', x: 2, y: 6, piece: nil },
+    { id: 'd2', x: 3, y: 6, piece: nil },
+    { id: 'e2', x: 4, y: 6, piece: nil },
+    { id: 'f2', x: 5, y: 6, piece: nil },
+    { id: 'g2', x: 6, y: 6, piece: nil },
+    { id: 'h2', x: 7, y: 6, piece: nil },
+
+    { id: 'a1', x: 0, y: 7, piece: nil },
+    { id: 'b1', x: 1, y: 7, piece: nil },
+    { id: 'c1', x: 2, y: 7, piece: nil },
+    { id: 'd1', x: 3, y: 7, piece: nil },
+    { id: 'e1', x: 4, y: 7, piece: nil },
+    { id: 'f1', x: 5, y: 7, piece: nil },
+    { id: 'g1', x: 6, y: 7, piece: nil },
+    { id: 'h1', x: 7, y: 7, piece: nil },
+  ]
+})
 
 describe JustChess::GameState do
   describe 'default' do
@@ -707,6 +784,17 @@ describe JustChess::GameState do
         refute game_state.in_checkmate?(2)
 
         assert_equal 2, game_state.winner
+      end
+    end
+
+    describe 'king has no moves and is not threatened' do
+      it 'king must be in checkmate' do
+        game_state = no_moves_state
+
+        assert game_state.in_checkmate?(2)
+        refute game_state.in_checkmate?(1)
+
+        assert_equal 1, game_state.winner
       end
     end
   end
