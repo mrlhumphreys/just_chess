@@ -104,6 +104,19 @@ module JustChess
       destinations(square, game_state)
     end
 
+    # All the squares that the piece could potential capture. (e.g. if a piece was there)
+    #
+    # @param [Square] square
+    #   the origin square.
+    #
+    # @param [GameState] game_state
+    #   the current game state.
+    #
+    # @return [SquareSet]
+    def potential_capture_squares(square, game_state)
+      capture_squares(square, game_state)
+    end
+
     # returns a serialized piece as a hash
     #
     # @return [Hash]

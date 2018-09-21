@@ -186,6 +186,20 @@ describe JustChess::SquareSet do
       assert_includes filtered, threatened_square
       refute_includes filtered, ignored_square
     end
+
+    it 'returns squares threatened by a player including pawns' do
+      attacker = JustChess::Pawn.new(id: 16, player_number: 2, has_moved: false)
+      attacker_square = JustChess::Square.new(id: 'h7', x: 7, y: 1, piece: attacker)
+      threatened_square = JustChess::Square.new(id: 'g6', x: 6, y: 2, piece: nil)
+
+      squares = JustChess::SquareSet.new(squares: [attacker_square, threatened_square])
+
+      game_state = JustChess::GameState.new(current_player_number: 1, squares: squares)
+
+      filtered = squares.threatened_by(2, game_state)
+
+      assert_includes filtered, threatened_square
+    end
   end
 
   describe 'as_json' do

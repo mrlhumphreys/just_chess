@@ -58,7 +58,20 @@ module JustChess
     #
     # @return [SquareSet]
     def capture_squares(square, game_state)
-      game_state.squares.in_range(square, 1).in_direction(square, forwards_direction).diagonal(square).occupied_by_opponent(player_number)
+      potential_capture_squares(square, game_state).occupied_by_opponent(player_number)
+    end
+
+    # All the squares that the piece could potentially capture. (i.e. even if a piece wasn't on the square.)
+    #
+    # @param [Square] square
+    #   the origin square.
+    #
+    # @param [GameState] game_state
+    #   the current game state.
+    #
+    # @return [SquareSet]
+    def potential_capture_squares(square, game_state)
+      game_state.squares.in_range(square, 1).in_direction(square, forwards_direction).diagonal(square)
     end
 
     # The Square that a pawn can capture en passant.

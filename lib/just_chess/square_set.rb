@@ -148,7 +148,7 @@ module JustChess
     # @return [SquareSet]
     def threatened_by(player_number, game_state)
       _squares = occupied_by_player(player_number).map do |s|
-        s.piece.capture_squares(s, game_state).squares
+        s.piece.potential_capture_squares(s, game_state).squares
       end.flatten.uniq
 
       self.class.new(squares: _squares)
