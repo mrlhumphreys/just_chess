@@ -282,7 +282,7 @@ module JustChess
         rook_from_y = from.y
         rook_from = squares.find_by_x_and_y(rook_from_x, rook_from_y)
 
-        rook_to_x = vector.direction.x > 0 ? (from.x + 1) : (from.x -1)
+        rook_to_x = vector.direction.x > 0 ? (from.x + 1) : (from.x - 1)
         rook_to_y = from.y
         rook_to = squares.find_by_x_and_y(rook_to_x, rook_to_y)
 
