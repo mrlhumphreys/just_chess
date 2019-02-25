@@ -254,10 +254,12 @@ module JustChess
 
     def king_cannot_move?(player_number)
       king_square = squares.find_king_for_player(player_number)
-      threatened_by = squares.threatened_by(opposing_player_number(player_number), self)
       destinations = king_square.piece.destinations(king_square, self)
-      remove_threats = destinations - threatened_by
-      remove_threats.none?
+      destinations.all? do |destination|
+        duplicate = self.clone
+        duplicate.perform_complete_move(player_number, king_square.id, destination.id)
+        duplicate.in_check?(player_number)
+      end
     end
 
     private
