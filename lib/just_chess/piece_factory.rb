@@ -59,7 +59,7 @@ module JustChess
     def build_from_hash
       klass = CLASSES[@args[:type]]
       if klass
-        klass.new(@args)
+        klass.new(**@args)
       else
         raise ArgumentError, "invalid piece type: #{@args[:type].to_s}"
       end

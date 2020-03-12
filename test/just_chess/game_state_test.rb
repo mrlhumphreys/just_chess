@@ -1,8 +1,8 @@
-require 'minitest/spec'
 require 'minitest/autorun'
+require 'minitest/spec'
 require 'just_chess/game_state'
 
-en_passant_state = JustChess::GameState.new({
+en_passant_state = JustChess::GameState.new(
   current_player_number: 1,
   last_double_step_pawn_id: 10,
   squares: [
@@ -78,9 +78,9 @@ en_passant_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: { id: 31, player_number: 1, type: 'knight' } },
     { id: 'h1', x: 7, y: 7, piece: { id: 32, player_number: 1, type: 'rook' } },
   ]
-})
+)
 
-castle_state = JustChess::GameState.new({
+castle_state = JustChess::GameState.new(
   current_player_number: 1,
   last_double_step_pawn_id: nil,
   squares: [
@@ -156,9 +156,9 @@ castle_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: nil },
     { id: 'h1', x: 7, y: 7, piece: { id: 32, player_number: 1, type: 'rook' } },
   ]
-})
+)
 
-promotion_state = JustChess::GameState.new({
+promotion_state = JustChess::GameState.new(
   current_player_number: 1,
   last_double_step_pawn_id: nil,
   squares: [
@@ -234,9 +234,9 @@ promotion_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: nil },
     { id: 'h1', x: 7, y: 7, piece: { id: 32, player_number: 1, type: 'rook' } },
   ]
-})
+)
 
-potential_check_state = JustChess::GameState.new({
+potential_check_state = JustChess::GameState.new(
   current_player_number: 1,
   last_double_step_pawn_id: nil,
   squares: [
@@ -312,9 +312,9 @@ potential_check_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: nil },
     { id: 'h1', x: 7, y: 7, piece: { id: 32, player_number: 1, type: 'rook' } },
   ]
-})
+)
 
-check_state = JustChess::GameState.new({
+check_state = JustChess::GameState.new(
   current_player_number: 1,
   last_double_step_pawn_id: nil,
   squares: [
@@ -390,9 +390,9 @@ check_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: nil },
     { id: 'h1', x: 7, y: 7, piece: { id: 32, player_number: 1, type: 'rook' } },
   ]
-})
+)
 
-check_state = JustChess::GameState.new({
+check_state = JustChess::GameState.new(
   current_player_number: 1,
   last_double_step_pawn_id: nil,
   squares: [
@@ -468,9 +468,9 @@ check_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: nil },
     { id: 'h1', x: 7, y: 7, piece: { id: 29, player_number: 1, type: 'king' } },
   ]
-})
+)
 
-checkmate_state = JustChess::GameState.new({
+checkmate_state = JustChess::GameState.new(
   current_player_number: 1,
   last_double_step_pawn_id: nil,
   squares: [
@@ -546,9 +546,9 @@ checkmate_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: nil },
     { id: 'h1', x: 7, y: 7, piece: { id: 29, player_number: 1, type: 'king' } },
   ]
-})
+)
 
-no_moves_state = JustChess::GameState.new({
+no_moves_state = JustChess::GameState.new(
   current_player_number: 2,
   last_double_step_pawn_id: nil,
   squares: [
@@ -624,9 +624,9 @@ no_moves_state = JustChess::GameState.new({
     { id: 'g1', x: 6, y: 7, piece: nil },
     { id: 'h1', x: 7, y: 7, piece: nil },
   ]
-})
+)
 
-no_moves_and_threatened_state = JustChess::GameState.new({
+no_moves_and_threatened_state = JustChess::GameState.new(
   :current_player_number=>1,
   :squares=>[
     {:id=>"a8", :x=>0, :y=>0, :piece=>nil},
@@ -702,7 +702,7 @@ no_moves_and_threatened_state = JustChess::GameState.new({
     {:id=>"h1", :x=>7, :y=>7, :piece=>nil}
   ],
   :last_double_step_pawn_id=>nil
-})
+)
 
 describe JustChess::GameState do
   describe 'default' do

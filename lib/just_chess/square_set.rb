@@ -23,7 +23,7 @@ module JustChess
     #   })
     def initialize(squares: )
       @squares = if squares.all? { |s| s.instance_of?(Hash) }
-        squares.map { |s| Square.new(s) }
+        squares.map { |s| Square.new(**s) }
       elsif squares.all? { |s| s.instance_of?(Square) }
         squares
       else

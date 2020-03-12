@@ -34,7 +34,7 @@ module JustChess
     #
     # @return [GameState]
     def self.default
-      new({
+      new(
         current_player_number: 1,
         squares: [
           { id: 'a8', x: 0, y: 0, piece: { id: 1, player_number: 2, type: 'rook' } },
@@ -109,7 +109,7 @@ module JustChess
           { id: 'g1', x: 6, y: 7, piece: { id: 31, player_number: 1, type: 'knight' } },
           { id: 'h1', x: 7, y: 7, piece: { id: 32, player_number: 1, type: 'rook' } },
         ]
-      })
+      )
     end
 
     # serializes the game state as a hash
@@ -127,7 +127,7 @@ module JustChess
     #
     # @return [GameState]
     def clone
-      self.class.new(as_json)
+      self.class.new(**as_json)
     end
 
     # Moves a piece owned by the player, from one square, to another, with an optional promotion.
