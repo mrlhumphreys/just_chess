@@ -268,7 +268,8 @@ module JustChess
       if to.occupied?
         to
       else
-        if from.piece.is_a?(Pawn) && from.piece.en_passant_square(from, self)
+        en_passant_square = from.piece.is_a?(Pawn) && from.piece.en_passant_square(from, self)
+        if en_passant_square && en_passant_square.x == to.x
           squares.find_by_piece_id(last_double_step_pawn_id)
         else
           nil

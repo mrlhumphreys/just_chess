@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/spec'
 require 'just_chess/game_state'
 
-en_passant_state = JustChess::GameState.new(
+en_passant_state = {
   current_player_number: 1,
   last_double_step_pawn_id: 10,
   squares: [
@@ -78,7 +78,7 @@ en_passant_state = JustChess::GameState.new(
     { id: 'g1', x: 6, y: 7, piece: { id: 31, player_number: 1, type: 'knight' } },
     { id: 'h1', x: 7, y: 7, piece: { id: 32, player_number: 1, type: 'rook' } },
   ]
-)
+}
 
 castle_state = JustChess::GameState.new(
   current_player_number: 1,
@@ -768,7 +768,7 @@ describe JustChess::GameState do
 
     describe 'en passant' do
       it 'must move the piece and remove the captured' do
-        game_state = en_passant_state
+        game_state = JustChess::GameState.new(**en_passant_state)
 
         result = game_state.move(1, 'a5', 'b6')
         from = game_state.squares.find_by_id('a5')
@@ -781,6 +781,22 @@ describe JustChess::GameState do
         assert from.unoccupied?
         assert_instance_of JustChess::Pawn, to.piece
         assert captured.unoccupied?
+      end
+
+      it 'must not capture if the pawn moved straight forward' do
+        game_state = JustChess::GameState.new(**en_passant_state)
+
+        result = game_state.move(1, 'a5', 'a6')
+        from = game_state.squares.find_by_id('a5')
+        to = game_state.squares.find_by_id('a6')
+        not_captured = game_state.squares.find_by_id('b5')
+
+        assert result
+        assert game_state.errors.empty?
+        assert_equal({:type=>"move", :data=>{:player_number=>1, :from=>"a5", :to=>"a6"}}, game_state.last_change)
+        assert from.unoccupied?
+        assert_instance_of JustChess::Pawn, to.piece
+        assert not_captured.occupied?
       end
     end
 
