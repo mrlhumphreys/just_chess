@@ -28,27 +28,13 @@ module JustChess
     #     id: 'a1',
     #     x: 1,
     #     y: 0,
-    #     piece: { player_number: 1, direction: 1, king: false }
+    #     piece: { id: 1, player_number: 1, type: 'pawn' }
     #   })
     def initialize(id: , x: , y: , piece: nil)
       @id = id
       @x = x
       @y = y
       @piece = PieceFactory.new(piece).build
-    end
-
-    # Is the square occupied by the specified player?
-    #
-    # @return [Boolean]
-    def occupied_by_player?(player_number)
-      piece && piece.player_number == player_number
-    end
-
-    # Is the square occupied by the opponent of the specified player?
-    #
-    # @return [Boolean]
-    def occupied_by_opponent?(player_number)
-      piece && piece.player_number != player_number
     end
 
     # returns the rank number of the square for the specified player
@@ -67,18 +53,6 @@ module JustChess
     # @return [Boolean]
     def last_rank(player_number)
       rank_number(player_number) == 8
-    end
-
-    # A serialized version of the square as a hash
-    #
-    # @return [Hash]
-    def as_json
-      {
-        id: id,
-        x: x,
-        y: y,
-        piece: piece && piece.as_json
-      }
     end
   end
 end

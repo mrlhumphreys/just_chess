@@ -72,6 +72,7 @@ module JustChess
     # @return [SquareSet]
     def checked_squares(square, game_state)
       dup = game_state.clone
+      # set piece to nil to handle case where a piece threatens squares behind the king
       dup.squares.find_king_for_player(player_number).piece = nil
       dup.squares.threatened_by(opponent, dup)
     end
@@ -95,3 +96,4 @@ module JustChess
     end
   end
 end
+
